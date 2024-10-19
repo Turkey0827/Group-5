@@ -1,16 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Group5_Website.Models;
-using Group5_Website.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-
 namespace WebApplication1.Controllers
 {
     public class CartController : Controller
     {
-        private readonly AppDbContext _db;
+        private readonly Group5_Website.Data.AppDbContext _db;
 
-        public CartController(AppDbContext db)
+        public CartController(Group5_Website.Data.AppDbContext db)
         {
             _db = db;
         }
