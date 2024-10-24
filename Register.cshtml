@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <title>User Registration</title>
+        <style>
+            /* 缩小整体行距 */
+            body {
+                line-height: 1.2;
+            }
+
+            /* 调整表单元素间的距离 */
+            .form-group {
+                margin-bottom: 0.5rem;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container mt-5">
+            <h2>Register</h2>
+            @using (Html.BeginForm("RegisterAction", "User", FormMethod.Post))
+            {
+                <div class="form-group">
+                    <label>User Type</label>
+                    <select name="userType" class="form-control" onchange="toggleFields()">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group username-field" style="display:none;">
+                    <label for="newUsername">Username</label>
+                    @Html.TextBox("newUsername", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group password-field" style="display:none;">
+                    <label for="newPassword">Password</label>
+                    @Html.Password("newPassword", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group confirm-password-field" style="display:none;">
+                    <label for="confirmPassword">Confirm Password</label>
+                    @Html.Password("confirmPassword", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group name-field" style="display:none;">
+                    <label for="name">Name</label>
+                    @Html.TextBox("name", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group email-field" style="display:none;">
+                    <label for="email">E-mail</label>
+                    @Html.TextBox("email", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group phone-number-field" style="display:none;">
+                    <label for="phoneNumber">Phone Number</label>
+                    @Html.TextBox("phoneNumber", null, new { @class = "form-control" })
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            }
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            function toggleFields() {
+                var selectedValue = document.querySelector('select[name="userType"]').value;
+                var usernameField = document.querySelector('.username-field');
+                var passwordField = document.querySelector('.password-field');
+                var confirmPasswordField = document.querySelector('.confirm-password-field');
+                var nameField = document.querySelector('.name-field');
+                var emailField = document.querySelector('.email-field');
+                var phoneNumberField = document.querySelector('.phone-number-field');
+
+                usernameField.style.display = 'none';
+                passwordField.style.display = 'none';
+                confirmPasswordField.style.display = 'none';
+                nameField.style.display = 'none';
+                emailField.style.display = 'none';
+                phoneNumberField.style.display = 'none';
+
+                if (selectedValue === 'user') {
+                    usernameField.style.display = 'block';
+                    passwordField.style.display = 'block';
+                    confirmPasswordField.style.display = 'block';
+                    nameField.style.display = 'block';
+                    emailField.style.display = 'block';
+                    phoneNumberField.style.display = 'block';
+                } else if (selectedValue === 'admin') {
+                    usernameField.style.display = 'block';
+                    passwordField.style.display = 'block';
+                    confirmPasswordField.style.display = 'block';
+                }
+            }
+        </script>
+    </body>
+</html>
