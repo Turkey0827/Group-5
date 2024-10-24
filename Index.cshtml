@@ -1,0 +1,36 @@
+﻿model List<User>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>User Login</title>
+        
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Login</h2>
+        @using (Html.BeginForm("LoginAction", "User", FormMethod.Post))
+        {
+            <div class="form-group">
+                <label for="username">Username</label>
+                @Html.TextBox("username", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                @Html.Password("password", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>User Type</label>
+                <select name="userType" class="form-control">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        }
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
