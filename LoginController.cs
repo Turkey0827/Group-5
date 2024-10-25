@@ -1,11 +1,11 @@
 ﻿using Group5_Website.Data;
 using Microsoft.AspNetCore.Mvc;
 using Group5_Website.Models;
-using System.Linq;
+using BCrypt.Net;
 
-    namespace Group5_Website.Controllers
-    {
-        public class LoginController : Controller
+namespace Group5_Website.Controllers
+{
+    public class LoginController : Controller
         {
         private readonly AppDbContext _db;
         public LoginController(AppDbContext db)
@@ -17,13 +17,13 @@ using System.Linq;
         {
             return View();
         }
-        [HttpGet]
-        public IActionResult Login(LoginViewModel model)
+        [HttpPost]
+        public IActionResult Login(Users model)
         {
             if (ModelState.IsValid)
             {
                 var user = _db.Users.FirstOrDefault(u => u.Name == model.Name && u.Password == model.Password);
-                if (user != null)
+                if (user != null && BCrypt.Net.BCrypt.Verify(model.Password,user.Password))
                 {//登录成功，保存会话
                     HttpContext.Session.SetString("User", user.Name);
                     return RedirectToAction("Index", "Home");
@@ -37,15 +37,38 @@ using System.Linq;
             }
             return View(model);
         }
-
-        public IActionResult Login()
-            {
-                return View(); // 这会自动查找 /Views/Login/Index.cshtml
-            }
+        
             public IActionResult Register()
             {
                 return View(); // 
             }
+        [HttpPost]
+        public IActionResult Register(Users model)
+        {
+            if (ModelState.IsValid)
+            {
+                //检查命名是否重复
+                if (_db.Users.Any(u => u.Name == model.Name))
+                {
+                    ModelState.AddModelError("", "The user name already exists");
+                    return View(model);
+                }
+                //创建新用户，并保存新用户到数据库中
+                var user = new Users
+                {
+                    Name = model.Name,
+                    Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber
+                };
+                _db.Users.Add(user);
+                _db.SaveChanges();
+
+                //注册成功，重定向到登录页面
+                return RedirectToAction("Login");
+            }
+            return View(model);
+        }
         }
     }
 
