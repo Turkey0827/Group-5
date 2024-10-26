@@ -1,0 +1,72 @@
+@{
+    ViewBag.Title = "Fashion clothes Market";
+    // 模拟男装数据
+    var menClothesData = new[] {
+        new {
+            item_Name = "Man's T-shirt",
+            item_Price = "99.99",
+            item_Imageurl = "~/img/Man's T-shirt.png"
+        },
+        new {
+            item_Name = "Man's Jean",
+            item_Price = "199.99",
+            item_Imageurl = "~/images/Man's Jean.png"
+        }
+    };
+    // 模拟女装数据
+    var womenClothesData = new[] {
+        new {
+            item_Name = "women's dress",
+            item_Price = "299.99",
+            item_Imageurl = "~/Images/women_dress.jpg"
+        },
+        new {
+            item_Name = "Blouse",
+            item_Price = "149.99",
+            item_Imageurl = "~/Images/women_shirt.jpg"
+        }
+    };
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/Site.css" /> <!-- 假设你有自定义的样式表，可根据实际情况调整 -->
+</head>
+
+<body>
+    <div>
+        <!-- 页面顶部插入图片，这里假设你有一张默认的顶部图片 -->
+        <img src="~/Img/IndexTop.png" alt="Top background in home page" style="width: 100%; height: auto;" />
+
+        <!-- 下半部分，左右两边分别展示男装和女装图片及相关信息 -->
+        <div style="display: flex; flex-direction: row; justify-content: space-around;">
+            <!-- 展示男装图片及相关信息 -->
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <h2>Man's wear</h2>
+                @foreach (var menClothes in menClothesData)
+                {
+                    <img src="@menClothes.item_Imageurl" alt="@menClothes.item_Name" style="width: 200px; height: 200px; margin: 10px;" />
+                    <p>名称: @menClothes.item_Name</p>
+                    <p>价格: @menClothes.item_Price</p>
+                }
+            </div>
+
+            <!-- 展示女装图片及相关信息 -->
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <h2>Women's wear</h2>
+                @foreach (var womenClothes in womenClothesData)
+                {
+                    <img src="@womenClothes.item_Imageurl" alt="@womenClothes.item_Name" style="width: 200px; height: 200px; margin: 10px;" />
+                    <p>名称: @womenClothes.item_Name</p>
+                    <p>价格: @womenClothes.item_Price</p>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
