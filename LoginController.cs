@@ -18,7 +18,7 @@ namespace Group5_Website.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Login(Users model)
+        public IActionResult Login(User model)
         {
             if (ModelState.IsValid)
             {
@@ -43,7 +43,7 @@ namespace Group5_Website.Controllers
                 return View(); // 
             }
         [HttpPost]
-        public IActionResult Register(Users model)
+        public IActionResult Register(User model)
         {
             if (ModelState.IsValid)
             {
@@ -54,7 +54,7 @@ namespace Group5_Website.Controllers
                     return View(model);
                 }
                 //创建新用户，并保存新用户到数据库中
-                var user = new Users
+                var user = new User
                 {
                     Name = model.Name,
                     Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
@@ -68,6 +68,21 @@ namespace Group5_Website.Controllers
                 return RedirectToAction("Login");
             }
             return View(model);
+        }
+        public IActionResult Manager()
+        {
+            return View();
+        }
+        public IActionResult Manager(string Account, string Password)
+        {
+            var user = AuthenticateUser(Account,Password);
+            if (user != null)
+            {
+                HttpContext.Session.SetString("UserRole", user.Role);
+                return RedirectToAction("Index","Home");
+            }
+            ModelState.AddModelError("", "User name or password is wrong");
+            return View();
         }
         }
     }
