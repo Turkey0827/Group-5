@@ -38,26 +38,6 @@ namespace Group5_Website.Controllers
             }
             return View(item);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Page(ClothesController model, IFormFile item_Image)
-        {
-            if (item_Image != null && item_Image.Length > 0)
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    item_Image.CopyTo(memoryStream);
-                    //将图片转化为byte[],并且存入数据库
-                    model.item_Imageurl = memoryStream.ToArray();
-                }
-            }
-            _db.Clothes.Add(model);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        public IActionResult Page()
-        {
-            return View();
-        }
+        
     }
 }
