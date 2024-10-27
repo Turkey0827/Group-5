@@ -13,7 +13,11 @@ namespace WebApplication1.Controllers
         }
 
         // 显示购物车
-     
+        public IActionResult Index()
+        {
+            var cart = GetCart();
+            return View(cart);
+        }
 
         // 添加商品
         public IActionResult AddItem(int itemId, int quantity)
@@ -32,34 +36,6 @@ namespace WebApplication1.Controllers
             }
 
             _db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        // 移除商品
-        public IActionResult RemoveItem(int itemId)
-        {
-            var cart = GetCart();
-            var item = cart.Items.FirstOrDefault(i => i.Product.item_Id == itemId);
-            if (item != null)
-            {
-                cart.Items.Remove(item);
-                _db.SaveChanges();
-            }
-
-            return RedirectToAction("Index");
-        }
-
-        // 更新商品数量
-        public IActionResult UpdateQuantity(int itemId, int quantity)
-        {
-            var cart = GetCart();
-            var item = cart.Items.FirstOrDefault(i => i.Product.item_Id == itemId);
-            if (item != null)
-            {
-                item.Quantity = quantity;
-                _db.SaveChanges();
-            }
-
             return RedirectToAction("Index");
         }
 

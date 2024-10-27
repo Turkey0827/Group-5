@@ -1,0 +1,14 @@
+﻿@model Group5_Website.Models.Clothes
+
+<div class="container">
+   <h2>@Model.item_Name</h2>
+   <img src="@Model.item_Imageurl" alt="Model.item_Name" style="width:200px;height:auto;"/>
+   <p><strong>Description:</strong>@Model.item_Description</p>
+   <p><strong>Price:</strong>@Model.item_Price</p>
+   <form asp-action="AddItem" method="post">
+         <input type="hidden" name="itemId" value="@Model.item_Id"/>
+         <label for="quantity">Quantity:</label>
+         <input type="number" name="quantity" value="1" min="1"/>
+         <button type="submit" class="btn btn-success">Add to Cart</button>
+   </form>
+</div>

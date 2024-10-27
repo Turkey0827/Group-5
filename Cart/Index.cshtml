@@ -1,0 +1,46 @@
+﻿@model Group5_Website.Models.Cart
+<div class="container">
+  <h2>Your Shopping Cart</h2>
+    @if(Model.Items.Count==0)
+    {
+        <p>Your Cart is empty</p>
+    }
+    else
+    {
+        <table class="table">  
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.Items)
+                {
+                    <tr>
+                        <td>@obj.Product.item_Name</td>
+                        <td>£@obj.Product.item_Price</td>
+                        <td>
+                            <form asp-action="UpdateQuantity" method="post">
+                               <input type="hidden" name="itemId" value="@obj.Product.item_Id"/>
+                                <input type="number" name="quantity" value="@obj.Quantity" min="1"/>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </form>
+                        </td>
+                        <td>£@(decimal.Parse(obj.Product.item_Price) * obj.Quantity)</td>
+                        <td>
+                            <form asp-action="RemoveItem" method="post">
+                               <input type="hidden" name="itemId" value="@obj.Product.item_Id"/>
+                               <button type="submit" class="btn btn-danger"> Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+    </table>      <div class="text-right">
+            <h4>Total: £@(Model.Items.Sum(i=>decimal.Parse(i.Product.item_Price) * i.Quantity)) </h4>
+        </div>    }
+</div>
