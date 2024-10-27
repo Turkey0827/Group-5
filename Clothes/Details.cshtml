@@ -1,0 +1,16 @@
+﻿@model Group5_Websiite.Models.Clothes
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Model.item_Imageurl" alt="@Model.item_Name" style="width:100%;height:auto;"/>
+        </div>
+        <div class="col-md-6">
+            <h2>@Model.item_Name</h2>
+            <p><strong>Description:</strong>@Model.item_Description</p>
+            <p><strong>Price:</strong>@Model.item_Price</p>
+            <p><strong>Category:</strong>@Model.item_Category</p>
+            <p><strong>Size:</strong>@Model.item_Size</p>
+            <p><strong>Type:</strong>@Model.item_Type</p>
+        </div>
+     </div>
+</div>

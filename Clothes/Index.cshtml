@@ -1,0 +1,39 @@
+﻿@*  Details*@
+@model List<Group5_Websiite.Models.Clothes>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">@(Model.FirstOrDefault()?.item_Type == "Male" ? "Male" : "Female") Product List</h2>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped ">
+        <thead>
+            <tr>
+                <th>Image
+                </th>
+                <th>Item Name
+                </th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Size</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td><img src="@obj.item_Imageurl" alt="@obj.item_Name" style="width:100px;height:auto"/>
+                    </td>
+                    <td> @obj.item_Name</td>
+                    <td>@obj.item_Description</td>
+                    <td> £ @obj.item_Price </td>
+                    <td>@obj.item_Size</td>
+                    <td>
+                        <a href="@Url.Action("Details","Cloths",new{IDataTokensMetadata=obj.item_Id})" class="btn btn-info">View Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
