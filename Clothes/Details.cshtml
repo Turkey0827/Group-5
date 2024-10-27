@@ -11,6 +11,8 @@
             <p><strong>Category:</strong>@Model.item_Category</p>
             <p><strong>Size:</strong>@Model.item_Size</p>
             <p><strong>Type:</strong>@Model.item_Type</p>
+            <a asp-action="AddItem" asp-controller="Cart" asp-route-itemId="@Model.item_Id" class="btn btn-success">Add to Cart</a>
+
         </div>
      </div>
 </div>
